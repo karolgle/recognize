@@ -1,20 +1,81 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
+<div width="800px">
+  <mat-grid-list cols="3">
+    <mat-grid-tile>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Upload image of some face</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="urlSelfie" alt='' class='' (click)="selfie.click()">
+        <mat-card-content>
+          <input #selfie id="selfie" type="file" accept="image/*" [hidden]="true" name="selfie" (change)="selectFile($event)">
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="selfie.click()">OPEN</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Upload image of the ID document front</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="urlIdDocFront" alt='' class='' (click)="idDocFront.click()">
+        <mat-card-content>
+          <input #idDocFront id="idDocFront" type="file" accept="image/*" [hidden]="true" name="idDocFront" (change)="selectFile($event)">
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="idDocFront.click()">OPEN</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Upload of the ID document back</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="urlIdDocBack" alt='' class='' (click)="idDocBack.click()">
+        <mat-card-content>
+          <input #idDocBack id="idDocBack" type="file" accept="image/*" [hidden]="true" name="idDocBack" (change)="selectFile($event)">
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="idDocBack.click()">OPEN</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-card>
+    <mat-card-content>
+      <button mat-button [disabled]="uploadAllDisabled()" (click)="upload()">UPLOAD ALL</button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="imageComparisonWebInfo != undefined">
+    <mat-card-content>
+      <mat-list>
+        <h3 mat-subheader>Face detection</h3>
+        <mat-list-item> Face detected: {{imageComparisonWebInfo.faceDetected? 'TRUE' : 'FALSE'}}</mat-list-item>
+        <mat-list-item [visible]="imageComparisonWebInfo.faceDetected"> Joy: {{imageComparisonWebInfo.joy}}</mat-list-item>
+        <mat-list-item [visible]="imageComparisonWebInfo.faceDetected"> Surprise: {{imageComparisonWebInfo.surprise}}</mat-list-item>
+        <mat-list-item [visible]="imageComparisonWebInfo.faceDetected"> Angry: {{imageComparisonWebInfo.anger}}</mat-list-item>
+        <mat-list-item [visible]="imageComparisonWebInfo.faceDetected"> Sorrow: {{imageComparisonWebInfo.sorrow}}</mat-list-item>
+        <mat-list-item [visible]="imageComparisonWebInfo.idFrontDocumentDetected">
+          Front id doc detected: {{imageComparisonWebInfo.idFrontDocumentDetected? 'TRUE' : 'FALSE'}} with score: {{imageComparisonWebInfo.idFrontDocumentScore}}
+        </mat-list-item>
+        <mat-list-item [visible]="imageComparisonWebInfo.idBackDocumentDetected">
+          Back id doc detected: {{imageComparisonWebInfo.idBackDocumentDetected? 'TRUE' : 'FALSE'}} with score: {{imageComparisonWebInfo.idBackDocumentScore}}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3 mat-subheader>Face comparison</h3>
+        <mat-list-item [visible]="imageComparisonWebInfo.faceComparisonResult">
+          Faces matches: {{imageComparisonWebInfo.faceComparisonResult? 'TRUE' : 'FALSE'}} with score...: {{imageComparisonWebInfo.faceScore}}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3 mat-subheader>Machine readable zone</h3>
+        <mat-list-item *ngFor='let mrzProp of imageComparisonWebInfo.mrz.split(",")'> {{mrzProp}}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io//">Angular blog</a></h2>
-  </li>
-</ul>
+
 
