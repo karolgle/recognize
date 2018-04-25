@@ -91,13 +91,3 @@ export class AppComponent {
     return !this.fileSelfie || !this.fileIdDocFront || !this.fileIdDocBack
   }
 }
-
-class PropertyItem {
-  key: string;
-  value: any;
-
-  constructor(key: string, value: any) {
-    this.key = key;
-    this.value = value;
-  }
-}

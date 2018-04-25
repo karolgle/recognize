@@ -1,28 +1,18 @@
 # Recognize
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.0.
+Simple app that show usage of [Google Vision API](https://cloud.google.com/vision/) and [Amazon Rekognition](https://aws.amazon.com/rekognition/).
+Following features are used: 
+- face detection(incl. facial expression), 
+- faces comparison, 
+- id documents detection(French specifically), 
+- passport document detection, 
+- machine readable zone reading.
+
+## Install
+
+Google and AWS credentials need to be configured see [Wiki](https://github.com/karolgle/recognize/wiki). 
+
 
 ## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `gradlew bootRun` to start backend server.
+Run `ng serve` or `npe start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
